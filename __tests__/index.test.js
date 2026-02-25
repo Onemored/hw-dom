@@ -4,6 +4,7 @@ import {
     placeGoblin,
     moveGoblin,
     startGame,
+    stopGame,
 } from '../src/index.js';
 
 describe('Игровая логика — покрытие src/index.js', () => {
@@ -22,6 +23,7 @@ describe('Игровая логика — покрытие src/index.js', () => 
     });
 
     afterEach(() => {
+        stopGame();
         jest.clearAllTimers();
         jest.useRealTimers();
         jest.restoreAllMocks();

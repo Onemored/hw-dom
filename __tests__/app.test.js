@@ -11,13 +11,17 @@ describe('Browser entry (app.js)', () => {
         document.body.innerHTML = '';
     });
 
-    test('app.js запускает игру по DOMContentLoaded', async () => {
+    test('app.js запускает игру по DOMContentLoaded и останавливает по beforeunload', async () => {
         await import('../src/app.js');
-        document.dispatchEvent(new Event('DOMContentLoaded'));
 
+        document.dispatchEvent(new Event('DOMContentLoaded'));
         expect(document.querySelectorAll('.cell')).toHaveLength(16);
         expect(document.querySelector('img.goblin')).not.toBeNull();
 
         expect(jest.getTimerCount()).toBe(1);
+
+        window.dispatchEvent(new Event('beforeunload'));
+
+        expect(jest.getTimerCount()).toBe(0);
     });
 });
