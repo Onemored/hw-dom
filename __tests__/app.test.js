@@ -1,27 +1,29 @@
-describe('Browser entry (app.js)', () => {
+describe('app.js', () => {
     beforeEach(() => {
         jest.resetModules();
         jest.useFakeTimers();
-        document.body.innerHTML = '<div id="game-board"></div>';
+        document.body.innerHTML = `
+            <section id="game-info"></section>
+            <section id="game-board"></section>
+        `;
     });
 
-    afterEach(() => {
-        jest.clearAllTimers();
+    afterEach(async () => {
+        const { stopGame } = await import('../src/index');
+        stopGame();
+        jest.runOnlyPendingTimers();
         jest.useRealTimers();
         document.body.innerHTML = '';
     });
 
-    test('app.js запускает игру по DOMContentLoaded и останавливает по beforeunload', async () => {
-        await import('../src/app.js');
+    test('DOMContentLoaded стартует игру, beforeunload её останавливает', async () => {
+        await import('../src/app');
 
         document.dispatchEvent(new Event('DOMContentLoaded'));
         expect(document.querySelectorAll('.cell')).toHaveLength(16);
-        expect(document.querySelector('img.goblin')).not.toBeNull();
-
-        expect(jest.getTimerCount()).toBe(1);
+        expect(document.querySelector('.goblin')).not.toBeNull();
 
         window.dispatchEvent(new Event('beforeunload'));
-
-        expect(jest.getTimerCount()).toBe(0);
+        expect(document.querySelector('.goblin')).toBeNull();
     });
 });

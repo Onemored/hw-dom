@@ -1,13 +1,14 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
 
-module.exports = {
-    mode: 'development',
+module.exports = (_, argv) => ({
+    mode: argv.mode || 'development',
     entry: './src/app.js',
     output: {
-        filename: 'bundle.js',
+        filename: 'bundle.[contenthash].js',
         path: path.resolve(__dirname, 'dist'),
+        clean: true,
+        assetModuleFilename: 'assets/[name][ext][query]',
     },
     module: {
         rules: [
@@ -21,16 +22,8 @@ module.exports = {
                 use: ['style-loader', 'css-loader'],
             },
             {
-                test: /\.(png|jpg|gif)$/i,
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            name: '[name].[ext]',
-                            outputPath: 'images/',
-                        },
-                    },
-                ],
+                test: /\.(png|jpg|jpeg|gif|svg)$/i,
+                type: 'asset/resource',
             },
         ],
     },
@@ -38,15 +31,10 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './index.html',
         }),
-        new CopyPlugin({
-            patterns: [
-                { from: 'src/goblin.png', to: 'images/' },
-            ],
-        }),
     ],
     devServer: {
         static: path.join(__dirname, 'dist'),
         compress: true,
         port: 9000,
     },
-};
+});

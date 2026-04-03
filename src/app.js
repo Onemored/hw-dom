@@ -1,4 +1,4 @@
-import { startGame, stopGame } from './index.js';
+import { startGame, stopGame } from './index';
 
 document.addEventListener('DOMContentLoaded', () => {
     startGame();
