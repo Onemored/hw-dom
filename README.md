@@ -46,36 +46,6 @@ npm test -- --runInBand
 npm run build
 ```
 
-## Публикация на GitHub Pages
-
-Сборка и публикация выполняются автоматически workflow-файлом:
-
-```text
-.github/workflows/deploy.yml
-```
-
-Условия публикации:
-
-- workflow запускается на `push` в ветку `main`;
-- сначала выполняются `lint` и `test`;
-- затем выполняется production-сборка;
-- содержимое каталога `dist` публикуется в ветку `gh-pages`.
-
-### Что нужно включить в GitHub
-
-В репозитории GitHub откройте:
-
-```text
-Settings -> Pages
-```
-
-И выберите:
-
-- `Source`: `Deploy from a branch`
-- `Branch`: `gh-pages`
-- папка: `/ (root)`
-
-После первого успешного workflow сайт будет доступен по адресу:
 
 ```text
 https://onemored.github.io/hw-dom/
@@ -106,18 +76,3 @@ src/
 .github/workflows/
   deploy.yml
 ```
-
-## CI badge
-
-Бейдж в README привязан к workflow:
-
-```text
-.github/workflows/deploy.yml
-```
-
-Если бейдж или Pages не обновляются, проверьте:
-
-- что основной branch — `main`;
-- что workflow имеет право на запись в репозиторий;
-- что в `Settings -> Pages` выбрана ветка `gh-pages`;
-- что в `Actions` сборка завершилась успешно.
