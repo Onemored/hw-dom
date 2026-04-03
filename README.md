@@ -1,44 +1,123 @@
-[![Build Status](https://github.com/onemored/hw-dom/actions/workflows/deploy.yml/badge.svg)](https://github.com/onemored/hw-dom/actions)
+[![CI & Deploy to GitHub Pages](https://github.com/Onemored/hw-dom/actions/workflows/deploy.yml/badge.svg)](https://github.com/Onemored/hw-dom/actions/workflows/deploy.yml)
 
 Демо: https://onemored.github.io/hw-dom/
 
-# Домашнее задание к занятию "2. DOM"
+# Домашнее задание к занятию «2. DOM»
 
-Правила сдачи задания:
+Проект собран на Webpack и автоматически публикуется на GitHub Pages через GitHub Actions.
 
-1. **Важно**: в рамках этого ДЗ можно использовать любой менеджер пакетов
-1. **Важно**: всё должно собираться через Webpack (включая картинки и стили) и выкладываться на Github Pages через GitHub Actions. [Инструкция](https://disk.360.yandex.ru/i/OCU8y022i92XdA)
-1. В README.md должен быть размещён бейджик сборки и ссылка на Github Pages
-1. В качестве результата присылайте проверяющему ссылки на ваши GitHub-проекты
+## Что реализовано
 
----
+- игровое поле 4x4;
+- случайное перемещение гоблина без повторения той же ячейки подряд;
+- счётчик попаданий и промахов;
+- кастомный курсор-молоток с анимацией удара;
+- тесты на Jest;
+- сборка и деплой через GitHub Actions.
 
-### Перемещение элемента
+## Стек
 
-#### Легенда
+- Node.js
+- Webpack
+- Babel
+- ESLint
+- Jest
+- GitHub Actions
+- GitHub Pages
 
-Вы решили развлечься и реализовать некое подобие игры, где гномы (или другие существа), выскакивают из "отверстий" и по ним нужно бить молотком:
+## Локальный запуск
 
-![](./pic/GracefulMiniatureBustard-small.gif)
+```bash
+npm ci
+npm start
+```
 
-Copyright gfycat.com
+Приложение будет доступно по адресу:
 
-#### Описание
+```bash
+http://localhost:9000
+```
 
-Соберите инфраструктуру проекта на базе Webpack, ESLint, Babel, Jest, Webpack Dev Server.
+## Проверка проекта
 
-Поскольку мы более гуманны, вам нужно реализовать лишь первую часть этой игры - перемещение объекта в DOM Tree.
+```bash
+npm run lint
+npm test -- --runInBand
+npm run build
+```
 
-Для этого самостоятельно разработайте игровое поле 4x4 и персонажа в виде картинки `img` (при загрузке страницы должен программно генерироваться и ставиться в рандомную позицию внутри игрового поля). С помощью функции `setInterval` запланируйте перемещение существующего объекта `img` в другое поле (алгоритм - рандомное перемещение, без перемещения в то же самое поле).
+## Публикация на GitHub Pages
 
-Для картинки персонажа используйте следующую:
+Сборка и публикация выполняются автоматически workflow-файлом:
 
-![](./pic/goblin.png)
+```text
+.github/workflows/deploy.yml
+```
 
-Важно: не используйте `removeChild`! Проверьте, что будет, если `Node` изменить родителя.
+Условия публикации:
 
-Всё должно собираться через Webpack (включая картинки и стили) и выкладываться на Github Pages через CI.
+- workflow запускается на `push` в ветку `main`;
+- сначала выполняются `lint` и `test`;
+- затем выполняется production-сборка;
+- содержимое каталога `dist` публикуется в ветку `gh-pages`.
 
-**В качестве результата пришлите проверяющему ссылку на ваш GitHub-проект. Не забудьте установить бейджик сборки.**
+### Что нужно включить в GitHub
 
----
+В репозитории GitHub откройте:
+
+```text
+Settings -> Pages
+```
+
+И выберите:
+
+- `Source`: `Deploy from a branch`
+- `Branch`: `gh-pages`
+- папка: `/ (root)`
+
+После первого успешного workflow сайт будет доступен по адресу:
+
+```text
+https://onemored.github.io/hw-dom/
+```
+
+## Полезные команды
+
+```bash
+npm start          # локальная разработка
+npm run build      # production-сборка
+npm run lint       # проверка ESLint
+npm test           # запуск тестов
+npm run test:coverage
+```
+
+## Структура
+
+```text
+src/
+  app.js
+  GameBoard.js
+  GameController.js
+  Goblin.js
+  HammerCursor.js
+  Scoreboard.js
+  constants.js
+  style.css
+.github/workflows/
+  deploy.yml
+```
+
+## CI badge
+
+Бейдж в README привязан к workflow:
+
+```text
+.github/workflows/deploy.yml
+```
+
+Если бейдж или Pages не обновляются, проверьте:
+
+- что основной branch — `main`;
+- что workflow имеет право на запись в репозиторий;
+- что в `Settings -> Pages` выбрана ветка `gh-pages`;
+- что в `Actions` сборка завершилась успешно.

@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack serve --open",
-    "build": "webpack",
+    "start": "webpack serve --mode development --open",
+    "build": "webpack --mode production",
     "lint": "eslint src/",
     "test": "jest",
     "test:coverage": "jest --coverage"
@@ -20,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/Onemored/hw-dom/issues"
   },
-  "homepage": "https://github.com/Onemored/hw-dom#readme",
+  "homepage": "https://onemored.github.io/hw-dom/",
   "devDependencies": {
     "@babel/core": "^7.29.0",
     "@babel/preset-env": "^7.29.0",
