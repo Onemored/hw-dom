@@ -21,6 +21,7 @@ export default class GameController {
         this.misses = 0;
         this.isRunning = false;
         this.timerId = null;
+        this.lastPosition = null;
 
         this.onCellClick = this.onCellClick.bind(this);
     }
@@ -35,6 +36,7 @@ export default class GameController {
     reset() {
         this.score = 0;
         this.misses = 0;
+        this.lastPosition = null;
         this.scoreboard.update(this.score, this.misses);
         this.scoreboard.setStatus('Игра запущена');
         this.goblin.hide();
@@ -63,10 +65,11 @@ export default class GameController {
     }
 
     spawnGoblin() {
-        const nextIndex = this.board.getRandomCellIndex(this.goblin.position);
+        const nextIndex = this.board.getRandomCellIndex(this.lastPosition);
         const nextCell = this.board.getCell(nextIndex);
 
         this.goblin.show(nextCell, nextIndex);
+        this.lastPosition = nextIndex;
         this.timerId = setTimeout(() => this.handleMiss(), this.visibleDuration);
     }
 

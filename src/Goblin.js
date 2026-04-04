@@ -11,16 +11,13 @@ export default class Goblin {
     }
 
     show(cell, position) {
-        cell.appendChild(this.element);
+        cell.append(this.element);
         this.position = position;
         this.visible = true;
     }
 
     hide() {
-        if (this.element.parentElement) {
-            this.element.parentElement.removeChild(this.element);
-        }
-
+        this.element.remove();
         this.position = null;
         this.visible = false;
     }

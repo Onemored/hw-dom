@@ -30,7 +30,7 @@ export default class HammerCursor {
         cursor.className = 'hammer-cursor';
         cursor.setAttribute('aria-hidden', 'true');
         cursor.style.backgroundImage = `url(${hammerIcon})`;
-        document.body.appendChild(cursor);
+        document.body.append(cursor);
         this.element = cursor;
 
         return cursor;
@@ -106,10 +106,7 @@ export default class HammerCursor {
             root.removeEventListener('mouseup', this.onMouseUp);
         }
 
-        if (this.element?.parentElement) {
-            this.element.parentElement.removeChild(this.element);
-        }
-
+        this.element?.remove();
         this.element = null;
         this.root = null;
     }

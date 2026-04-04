@@ -49,8 +49,17 @@ describe('GameBoard', () => {
 
         const normalBoard = new GameBoard();
         normalBoard.render();
-        jest.spyOn(Math, 'random').mockReturnValueOnce(0).mockReturnValueOnce(0.2);
-        expect(normalBoard.getRandomCellIndex(0)).toBe(3);
+        jest.spyOn(Math, 'random').mockReturnValueOnce(0.2);
+        expect(normalBoard.getRandomCellIndex(0)).toBe(4);
+    });
+
+    test('getRandomCellIndex возвращает любое значение, если excludedIndex невалидный', () => {
+        const board = new GameBoard();
+        board.render();
+        jest.spyOn(Math, 'random').mockReturnValueOnce(0.5).mockReturnValueOnce(0.1);
+
+        expect(board.getRandomCellIndex(null)).toBe(8);
+        expect(board.getRandomCellIndex(100)).toBe(1);
     });
 
     test('getRandomCellIndex выбрасывает ошибку до render', () => {
@@ -160,6 +169,21 @@ describe('GameController', () => {
         controller.board.getCell(1).click();
         expect(controller.score).toBe(0);
         expect(controller.goblin.position).toBe(2);
+    });
+
+
+    test('после попадания и промаха гоблин не появляется в той же ячейке подряд', () => {
+        const controller = new GameController();
+        controller.start();
+
+        const firstPosition = controller.goblin.position;
+        controller.handleHit();
+        const secondPosition = controller.goblin.position;
+        expect(secondPosition).not.toBe(firstPosition);
+
+        jest.advanceTimersByTime(1000);
+        const thirdPosition = controller.goblin.position;
+        expect(thirdPosition).not.toBe(secondPosition);
     });
 
     test('handleMiss завершает игру на пятом промахе', () => {

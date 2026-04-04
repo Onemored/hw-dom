@@ -31,7 +31,7 @@ export default class GameBoard {
             cell.className = 'cell';
             cell.dataset.index = String(index);
             cell.setAttribute('aria-label', `Лунка ${index + 1}`);
-            container.appendChild(cell);
+            container.append(cell);
             this.cells.push(cell);
         }
 
@@ -47,12 +47,12 @@ export default class GameBoard {
             return 0;
         }
 
-        let nextIndex = Math.floor(Math.random() * this.cells.length);
-        while (nextIndex === excludedIndex) {
-            nextIndex = Math.floor(Math.random() * this.cells.length);
+        if (excludedIndex === null || excludedIndex < 0 || excludedIndex >= this.cells.length) {
+            return Math.floor(Math.random() * this.cells.length);
         }
 
-        return nextIndex;
+        const randomIndex = Math.floor(Math.random() * (this.cells.length - 1));
+        return randomIndex >= excludedIndex ? randomIndex + 1 : randomIndex;
     }
 
     getCell(index) {
