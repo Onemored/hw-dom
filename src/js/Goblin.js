@@ -1,4 +1,4 @@
-import goblinImg from './goblin.png';
+import goblinImg from '../img/goblin.png';
 
 export default class Goblin {
     constructor() {

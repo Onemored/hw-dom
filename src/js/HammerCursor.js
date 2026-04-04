@@ -1,4 +1,4 @@
-import hammerIcon from './hammer.svg';
+import hammerIcon from '../img/hammer.svg';
 
 export default class HammerCursor {
     constructor(rootId = 'game-board') {

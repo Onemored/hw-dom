@@ -1,4 +1,4 @@
-import HammerCursor from '../src/HammerCursor';
+import HammerCursor from '../src/js/HammerCursor';
 
 function prepareDom() {
     document.body.innerHTML = '<section id="game-board"></section>';

@@ -19,15 +19,19 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+          cache: yarn
+
+      - name: Включение Corepack
+        run: corepack enable
 
       - name: Установка зависимостей
-        run: npm ci
+        run: yarn install --frozen-lockfile
 
       - name: Линтинг
-        run: npm run lint
+        run: yarn lint
 
       - name: Тесты + проверка 100% покрытия
-        run: npm run test -- --coverage
+        run: yarn test --coverage
 
   build-and-deploy:
     needs: test
@@ -44,12 +48,16 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+          cache: yarn
+
+      - name: Включение Corepack
+        run: corepack enable
 
       - name: Установка зависимостей
-        run: npm ci
+        run: yarn install --frozen-lockfile
 
       - name: Сборка
-        run: npm run build
+        run: yarn build
 
       - name: Деплой на GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4

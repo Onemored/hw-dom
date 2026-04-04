@@ -8,7 +8,7 @@ module.exports = (_, argv) => {
 
     return {
         mode: argv.mode || 'development',
-        entry: './src/app.js',
+        entry: './src/js/app.js',
         output: {
             filename: 'bundle.[contenthash].js',
             path: path.resolve(__dirname, 'dist'),

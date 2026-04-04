@@ -28,8 +28,9 @@
 ## Локальный запуск
 
 ```bash
-npm ci
-npm start
+corepack enable
+yarn install
+yarn start
 ```
 
 Приложение будет доступно по адресу:
@@ -41,9 +42,9 @@ http://localhost:9000
 ## Проверка проекта
 
 ```bash
-npm run lint
-npm test -- --runInBand
-npm run build
+yarn lint
+yarn test --runInBand
+yarn build
 ```
 
 
@@ -54,25 +55,31 @@ https://onemored.github.io/hw-dom/
 ## Полезные команды
 
 ```bash
-npm start          # локальная разработка
-npm run build      # production-сборка
-npm run lint       # проверка ESLint
-npm test           # запуск тестов
-npm run test:coverage
+yarn start          # локальная разработка
+yarn build          # production-сборка
+yarn lint           # проверка ESLint
+yarn test           # запуск тестов
+yarn test:coverage
 ```
 
 ## Структура
 
 ```text
 src/
-  app.js
-  GameBoard.js
-  GameController.js
-  Goblin.js
-  HammerCursor.js
-  Scoreboard.js
-  constants.js
-  style.css
+  css/
+    style.css
+  img/
+    goblin.png
+    hammer.svg
+  js/
+    app.js
+    GameBoard.js
+    GameController.js
+    Goblin.js
+    HammerCursor.js
+    Scoreboard.js
+    constants.js
+  index.js
 .github/workflows/
   deploy.yml
 ```

@@ -1,6 +1,6 @@
-import './style.css';
-import GameController from './GameController';
-import HammerCursor from './HammerCursor';
+import './css/style.css';
+import GameController from './js/GameController';
+import HammerCursor from './js/HammerCursor';
 
 let gameController = null;
 let hammerCursor = null;

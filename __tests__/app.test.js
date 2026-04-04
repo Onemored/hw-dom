@@ -17,7 +17,7 @@ describe('app.js', () => {
     });
 
     test('DOMContentLoaded стартует игру, beforeunload её останавливает', async () => {
-        await import('../src/app');
+        await import('../src/js/app');
 
         document.dispatchEvent(new Event('DOMContentLoaded'));
         expect(document.querySelectorAll('.cell')).toHaveLength(16);

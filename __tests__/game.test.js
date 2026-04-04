@@ -1,7 +1,7 @@
-import GameBoard from '../src/GameBoard';
-import Goblin from '../src/Goblin';
-import Scoreboard from '../src/Scoreboard';
-import GameController from '../src/GameController';
+import GameBoard from '../src/js/GameBoard';
+import Goblin from '../src/js/Goblin';
+import Scoreboard from '../src/js/Scoreboard';
+import GameController from '../src/js/GameController';
 
 function prepareDom() {
     document.body.innerHTML = `
